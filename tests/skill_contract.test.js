@@ -11,6 +11,7 @@ const outputExamples = read("skills/daily-po-pm-loop/references/output-examples.
 const app = read("prototype/app.js");
 const data = read("prototype/data.js");
 const petDoc = read("docs/06-codex-pet-integration.md");
+const runtimePrompt = read("docs/07-codex-runtime-test-prompt.md");
 
 function includesAll(source, required, label) {
   for (const item of required) {
@@ -78,6 +79,18 @@ includesAll(
     "active-thread progress prompting"
   ],
   "docs/06-codex-pet-integration.md"
+);
+
+includesAll(
+  runtimePrompt,
+  [
+    "Use the daily-po-pm-loop skill at skills/daily-po-pm-loop.",
+    "Pet cue:",
+    "Do not generate the PRD or UI mock until I approve one opportunity card.",
+    "Phase 1: Morning Signal Triage",
+    "Phase 4: Generate Selected Planning Artifact"
+  ],
+  "docs/07-codex-runtime-test-prompt.md"
 );
 
 includesAll(

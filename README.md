@@ -77,6 +77,7 @@ flowchart TB
 - `server.js`: Codex App / 브라우저 데모용 로컬 preview server
 - `tests/skill_contract.test.js`: Skill과 prototype의 계약이 맞는지 확인하는 테스트
 - `docs/06-codex-pet-integration.md`: 실제 Codex Pet 데모 방법과 한계
+- `docs/07-codex-runtime-test-prompt.md`: Codex 앱에서 실제 Skill 동작을 테스트하는 프롬프트
 
 ## 데모 실행
 
@@ -123,6 +124,8 @@ node tests/skill_contract.test.js
 Codex Pet은 별도 push API가 아니라 Codex 앱의 active thread와 짧은 progress prompt를 보여주는 floating overlay입니다. 그래서 이 Skill은 각 단계 응답 상단에 `Pet cue: ...`를 출력하도록 설계했습니다. Codex 앱에서 `/pet`을 켠 뒤 Skill을 실행하면 Pet overlay가 active thread의 진행 상태를 보여줍니다.
 
 자세한 데모 절차는 `docs/06-codex-pet-integration.md`를 참고하세요.
+
+Codex 앱에서 Skill 자체를 실제로 실행해 보려면 `docs/07-codex-runtime-test-prompt.md`의 프롬프트를 사용하세요.
 
 ## Skillthon 포지셔닝
 

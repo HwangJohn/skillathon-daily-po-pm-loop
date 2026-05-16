@@ -77,6 +77,7 @@ flowchart TB
 - `server.js`: local preview server for Codex App / browser demos
 - `tests/skill_contract.test.js`: contract tests that check the skill and prototype stay aligned
 - `docs/06-codex-pet-integration.md`: real Codex Pet demo procedure and boundaries
+- `docs/07-codex-runtime-test-prompt.md`: prompt for testing the actual skill behavior in Codex App
 
 ## Run the demo
 
@@ -123,6 +124,8 @@ The test does not call a model. It verifies that the submitted `SKILL.md`, refer
 Codex Pet is not a separate push API. It is a floating overlay that shows the active Codex thread and a short progress prompt. This skill is designed to print `Pet cue: ...` at the top of each phase response. When `/pet` is enabled in the Codex App, the Pet overlay can surface the active thread progress.
 
 See `docs/06-codex-pet-integration.md` for the demo procedure.
+
+To test the actual skill behavior in Codex App, use the prompt in `docs/07-codex-runtime-test-prompt.md`.
 
 ## Skillthon Positioning
 

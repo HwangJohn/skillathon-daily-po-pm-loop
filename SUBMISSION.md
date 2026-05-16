@@ -66,7 +66,15 @@ Use the daily-po-pm-loop skill. Read the sample signals, produce an operating bo
 
 ## Codex Pet Demo Prompt
 
-Codex Pet is integrated through the active Codex thread rather than a separate push API. Enable Codex Pet in Settings > Appearance > Pets, then type `/pet` or use Wake Pet. Run this prompt in the active thread:
+Codex Pet is integrated through the active Codex thread rather than a separate push API. Enable Codex Pet in Settings > Appearance > Pets, then type `/pet` or use Wake Pet.
+
+Use the full runtime test prompt in:
+
+```text
+docs/07-codex-runtime-test-prompt.md
+```
+
+Short version:
 
 ```text
 Use the daily-po-pm-loop skill at skills/daily-po-pm-loop.
