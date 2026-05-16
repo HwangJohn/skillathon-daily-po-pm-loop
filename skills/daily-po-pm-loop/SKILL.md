@@ -95,8 +95,39 @@ Use Codex Pet through the active Codex thread. Codex Pet does not expose a publi
 - Avoid generic status text.
 - Put the current `pet_prompt` near the top of each phase response as `Pet cue: ...`.
 - When waiting for user input, make the Pet cue describe the next human decision.
-- In demo mode, update the Pet cue at least for triage, opportunity review, card refinement, and selected artifact generation.
+- In demo mode, update the Pet cue when the operating board changes, when a product opportunity card changes, and while the selected planning artifact is being generated.
+- Pet cues should reflect the actual work state, not act as generic demo narration.
 - Example: `릴리즈 리스크 1건만 결정하면 오늘 focus가 잠깁니다.`
+
+### Pet Cue Event Contract
+
+Emit a Pet cue for these events:
+
+1. **Operating board changed**
+   - Trigger after signal triage, deduping, status movement, focus selection, or risk/stakeholder classification.
+   - Mention the board slice that changed and the next decision.
+   - Example: `Pet cue: 운영 보드 업데이트: Risk 2건과 Today focus 3건을 정리했습니다.`
+
+2. **Product opportunity card changed**
+   - Trigger after card creation, deletion, merge, user edit, confidence change, or card refinement.
+   - Mention the edited field or refinement result.
+   - Example: `Pet cue: 후보 카드 변경: 대상 사용자와 해결책이 수정됐습니다. 승인할 카드 1개를 고르세요.`
+
+3. **Selected planning artifact generation progressed**
+   - Trigger when the user approves exactly one card and during PRD/UI mock generation steps.
+   - Mention the current artifact step, such as PRD brief, user stories, acceptance criteria, UI mock, or review state.
+   - Example: `Pet cue: 산출물 생성 중: 승인된 카드 1개로 PRD 초안을 만들고 있습니다.`
+
+Recommended demo sequence:
+
+- `Pet cue: 운영 보드 업데이트: 업무 신호를 Today, Waiting, Risk로 분류했습니다.`
+- `Pet cue: 후보 카드 변경: Today Focus 카드의 사용자와 해결책이 수정됐습니다.`
+- `Pet cue: 후보 카드 변경: 카드 다듬기로 문제, 임팩트, 해결책을 정리했습니다.`
+- `Pet cue: 산출물 생성 중: 승인된 카드 1개로 PRD 초안을 작성합니다.`
+- `Pet cue: 산출물 생성 중: Today Focus Todo mock을 구성합니다.`
+- `Pet cue: 산출물 생성 완료: PRD와 Today Focus mock이 준비됐습니다.`
+
+If a visual demo app is generated for this skill, the app may keep the current Pet cue as hidden or inspectable state for demo automation, but it must not present that state as a fake in-page Pet notification by default. Real Pet visibility comes from `Pet cue: ...` lines in the active Codex thread.
 
 ### Codex App Pet Demo Procedure
 
@@ -110,10 +141,10 @@ When the user wants to demonstrate this skill with Codex Pet:
 
 Demo Pet cues:
 
-- `Pet cue: 업무 신호를 Today, Waiting, Risk로 정리했습니다.`
-- `Pet cue: 기획 후보 3개가 준비됐습니다. 하나를 고쳐 승인하세요.`
-- `Pet cue: 카드 문장을 다듬었습니다. 선택하면 PRD/mock을 만듭니다.`
-- `Pet cue: 승인된 카드 1개에서 PRD와 Today Focus mock을 만들었습니다.`
+- `Pet cue: 운영 보드 업데이트: 업무 신호를 Today, Waiting, Risk로 정리했습니다.`
+- `Pet cue: 후보 카드 변경: 기획 후보 3개가 준비됐습니다. 하나를 고쳐 승인하세요.`
+- `Pet cue: 후보 카드 변경: 카드 문장을 다듬었습니다. 선택하면 PRD/mock을 만듭니다.`
+- `Pet cue: 산출물 생성 완료: 승인된 카드 1개에서 PRD와 Today Focus mock을 만들었습니다.`
 
 ## Automation Prompt Rules
 

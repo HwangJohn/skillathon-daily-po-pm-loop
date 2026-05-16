@@ -10,6 +10,13 @@ const prd = document.getElementById("prd");
 const uiMock = document.getElementById("uiMock");
 const artifactState = document.getElementById("artifactState");
 
+function announcePet(message) {
+  window.currentPetCue = message;
+  window.petCueLog = [...(window.petCueLog || []), message];
+  petPrompt.textContent = message;
+  document.dispatchEvent(new CustomEvent("daily-po-pm-pet-cue", { detail: { message } }));
+}
+
 function classifySignal(signal) {
   if (signal.type === "risk") return "Risk";
   if (signal.type === "stakeholder") return "Stakeholder";
@@ -66,8 +73,8 @@ function runTriage() {
   prd.innerHTML = "";
   uiMock.className = "ui-mock empty";
   uiMock.textContent = "기획 후보 카드를 선택하고 기획안 생성을 누르세요.";
-  petPrompt.textContent = "기획 후보 3개가 준비됐습니다. 하나를 고쳐서 PRD/mock으로 확장하세요.";
   render();
+  announcePet("운영 보드 업데이트: 업무 신호 12개를 Today, Waiting, Risk, Stakeholder로 분류했습니다.");
 }
 
 function nextActionFor(signal) {
@@ -154,8 +161,8 @@ function addOpportunity() {
     solution: "작고 검증 가능한 해결책을 적어주세요.",
     openQuestions: "가장 위험한 미확인 질문을 적어주세요."
   });
-  petPrompt.textContent = "새 기획 후보가 추가됐습니다. 문제, 사용자, 증거만 먼저 채우세요.";
   renderOpportunities();
+  announcePet("후보 카드 변경: 새 제품 기획 후보가 추가됐습니다. 문제, 사용자, 근거를 먼저 채우세요.");
 }
 
 function updateField(event) {
@@ -164,10 +171,13 @@ function updateField(event) {
   const field = target.dataset.field;
   if (!id || !field) return;
   const card = opportunities.find((item) => item.id === id);
-  if (card) card[field] = target.value;
+  if (card) {
+    card[field] = target.value;
+    announcePet(`후보 카드 변경: '${fieldLabel(field)}' 항목이 수정됐습니다. 승인 전 카드에만 반영됩니다.`);
+  }
 }
 
-function handleOpportunityAction(event) {
+async function handleOpportunityAction(event) {
   const button = event.target.closest("button[data-action]");
   if (!button) return;
   const id = button.dataset.id;
@@ -177,21 +187,34 @@ function handleOpportunityAction(event) {
 
   if (action === "delete") {
     opportunities = opportunities.filter((item) => item.id !== id);
-    petPrompt.textContent = "후보 카드가 삭제됐습니다. 남은 후보 중 하나만 PRD/mock으로 확장하세요.";
     renderOpportunities();
+    announcePet("후보 카드 변경: 카드가 삭제됐습니다. 남은 후보 중 하나만 PRD/mock으로 확장하세요.");
     return;
   }
 
   if (action === "refine") {
     refineCard(card);
-    petPrompt.textContent = "사용자 의도를 유지한 채 카드 문장을 다듬었습니다.";
     renderOpportunities();
+    announcePet("후보 카드 변경: 카드 다듬기로 문제, 임팩트, 해결책 문장을 정리했습니다.");
     return;
   }
 
   if (action === "generate") {
-    generateArtifact(card);
+    await generateArtifact(card, { progress: true });
   }
+}
+
+function fieldLabel(field) {
+  return {
+    title: "제목",
+    problem: "문제",
+    targetUser: "대상 사용자",
+    evidence: "근거",
+    impact: "임팩트",
+    confidence: "신뢰도",
+    solution: "제안 해결책",
+    openQuestions: "열린 질문"
+  }[field] || field;
 }
 
 function refineCard(card) {
@@ -209,9 +232,19 @@ function tighten(text, prefix) {
   return `${prefix}: ${trimmed}`;
 }
 
-function generateArtifact(card) {
+async function generateArtifact(card, options = {}) {
+  if (options.progress) {
+    artifactState.textContent = "PRD 초안 작성 중";
+    announcePet("산출물 생성 중: 승인된 카드 1개만 PRD 초안으로 확장합니다.");
+    await wait(900);
+
+    artifactState.textContent = "화면 mock 구성 중";
+    announcePet("산출물 생성 중: Today Focus Todo mock의 섹션과 우선순위 상태를 구성합니다.");
+    await wait(900);
+  }
+
   artifactState.textContent = "선택된 카드에서 생성됨";
-  petPrompt.textContent = "기획 후보 1개가 PRD/mock 검토 단계로 이동했습니다.";
+  announcePet("산출물 생성 완료: PRD와 Today Focus Todo mock이 승인된 카드에서 생성됐습니다.");
 
   prd.innerHTML = `
     <h3>${escapeHtml(card.title)}</h3>
@@ -302,7 +335,7 @@ function generateArtifact(card) {
 
 async function runGuidedDemo() {
   runTriage();
-  petPrompt.textContent = "1단계: 업무 신호를 운영 보드로 정리했습니다.";
+  announcePet("운영 보드 업데이트: 업무 신호를 실행 가능한 Today, Waiting, Risk 항목으로 정리했습니다.");
   highlight(".board");
   await wait(1800);
 
@@ -311,20 +344,18 @@ async function runGuidedDemo() {
   first.solution = "오늘 focus 3개를 상단에 고정하고, Waiting과 Risk todo를 아래에서 분리해 보여줍니다.";
   first.openQuestions = "focus 3개 초안은 Codex가 추천하고 사용자가 승인하는 흐름이 맞나요?";
   renderOpportunities();
-  petPrompt.textContent = "2단계: PO/PM이 후보 카드의 사용자와 해결책을 직접 수정했습니다.";
+  announcePet("후보 카드 변경: 첫 번째 카드의 대상 사용자, 해결책, 열린 질문을 사람이 수정했습니다.");
   highlight(".opportunity-list");
   await wait(2200);
 
   refineCard(first);
   renderOpportunities();
-  petPrompt.textContent = "3단계: 사용자 의도를 유지한 채 카드 문장을 다듬었습니다.";
+  announcePet("후보 카드 변경: 카드 다듬기로 문제, 임팩트, 해결책 문장을 정리했습니다.");
   highlight(".opportunity-list");
   await wait(2200);
 
-  generateArtifact(first);
+  await generateArtifact(first, { progress: true });
   highlight(".mock");
-  await wait(1800);
-  petPrompt.textContent = "완료: 승인된 카드 1개에서 PRD와 화면 mock을 생성했습니다.";
 }
 
 function wait(ms) {

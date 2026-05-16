@@ -10,7 +10,7 @@ Therefore this project integrates with Pet by making the Codex Skill emit short 
 
 - **Codex App**: use this for the real Pet overlay demo. Enable Pet and run the skill in the active thread.
 - **Codex CLI**: can test the skill flow and `Pet cue: ...` text, but cannot display the Pet overlay.
-- **Browser prototype**: visually mirrors Pet cues in the top-right area, but does not connect to the real Codex Pet.
+- **Browser prototype**: keeps the current cue as page state for demo automation, but does not show a fake Pet notification by default and does not connect to the real Codex Pet.
 
 ## How to demo with real Codex Pet
 
@@ -35,7 +35,7 @@ First triage the signals, then propose opportunity cards and wait for my edits. 
 
 ## Prototype behavior
 
-The browser prototype mirrors those cues in the top-right Pet prompt area. That area is not the real Codex Pet; it is a visual mirror for the Skillthon demo.
+The browser prototype updates an internal cue state from the same event handlers that change the board, opportunity cards, and planning artifacts. It intentionally does not show that state as a top-right in-page notification by default. In the real demo, Codex should emit `Pet cue: ...` in the active thread so the actual Codex Pet overlay can surface the progress cue.
 
 ## Boundary
 

@@ -8,7 +8,7 @@
 
 ![Codex 앱에서 데모를 실행한 화면](imgs/demo-codex-app.png)
 
-위 화면은 Codex 앱에서 로컬 데모 페이지를 열고, 선택된 제품 기획 후보 카드가 PRD와 Today Focus Todo mock으로 확장된 상태입니다. 오른쪽 하단의 Pet overlay는 실제 Codex 앱의 active thread 진행 상태를 보여주는 용도입니다.
+위 화면은 Codex 앱에서 로컬 데모 페이지를 열고, 선택된 제품 기획 후보 카드가 PRD와 Today Focus Todo mock으로 확장된 상태입니다. Pet 알림은 브라우저 페이지 안에서 가짜 overlay로 띄우지 않고, 실제 Codex 앱의 active thread `Pet cue: ...` 진행 상태로 보여주는 구조입니다.
 
 ## 컨셉
 
@@ -125,7 +125,7 @@ node tests/skill_contract.test.js
 
 ## Codex Pet 연동
 
-실제 Codex Pet overlay를 보여주려면 **Codex 앱에서 실행해야 합니다.** Codex Pet은 Codex 앱의 floating overlay이고, active thread의 상태와 짧은 progress prompt를 보여주는 기능입니다.
+실제 Codex Pet overlay를 보여주려면 **Codex 앱에서 실행해야 합니다.** Codex Pet은 Codex 앱의 floating overlay이고, active thread의 상태와 짧은 progress prompt를 보여주는 기능입니다. 브라우저 prototype은 자체 top-right Pet 알림을 표시하지 않으며, 현재 cue는 자동화가 읽을 수 있는 내부 상태로만 유지합니다.
 
 CLI에서도 Skill 절차와 `Pet cue: ...` 출력은 테스트할 수 있지만, CLI에는 Pet overlay가 없으므로 실제 Pet 화면은 보이지 않습니다. 그래서 이 Skill은 각 단계 응답 상단에 `Pet cue: ...`를 출력하도록 설계했고, Codex 앱에서 `/pet`을 켠 뒤 Skill을 실행하면 Pet overlay가 active thread의 진행 상태를 보여줍니다.
 

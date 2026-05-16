@@ -8,7 +8,7 @@ The core artifact is the Codex Skill in `skills/daily-po-pm-loop/SKILL.md`. The 
 
 ![Demo running in the Codex App](imgs/demo-codex-app.png)
 
-The screenshot shows the local demo page running inside the Codex App after a selected product opportunity card has been expanded into a PRD and Today Focus Todo mock. The Pet overlay in the lower-right represents the real Codex App active-thread progress surface.
+The screenshot shows the local demo page running inside the Codex App after a selected product opportunity card has been expanded into a PRD and Today Focus Todo mock. Pet notifications are not rendered as a fake overlay inside the browser page; they are intended to appear through the real Codex App active-thread `Pet cue: ...` progress surface.
 
 ## Concept
 
@@ -125,7 +125,7 @@ The test does not call a model. It verifies that the submitted `SKILL.md`, refer
 
 ## Codex Pet Integration
 
-To show the real Codex Pet overlay, run the demo in the **Codex App**. Codex Pet is a floating overlay in the Codex App that shows the active thread state and a short progress prompt.
+To show the real Codex Pet overlay, run the demo in the **Codex App**. Codex Pet is a floating overlay in the Codex App that shows the active thread state and a short progress prompt. The browser prototype does not show its own top-right Pet notification; it only keeps the current cue as inspectable state for automation.
 
 The CLI can test the same skill flow and `Pet cue: ...` output, but it cannot show the Pet overlay. This skill is designed to print `Pet cue: ...` at the top of each phase response. When `/pet` is enabled in the Codex App, the Pet overlay can surface the active thread progress.
 

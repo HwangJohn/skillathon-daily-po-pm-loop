@@ -66,7 +66,7 @@ includesAll(
 
 includesAll(
   outputExamples,
-  ["Pet prompt examples", "Opportunity card example", "PRD brief example"],
+  ["Pet prompt examples", "Demo page Pet cue state examples", "Skill Pet cue examples", "Opportunity card example", "PRD brief example"],
   "output-examples.md"
 );
 
@@ -104,7 +104,9 @@ includesAll(
     "runGuidedDemo",
     "Today Focus",
     "카드 다듬기",
-    "기획안 생성"
+    "기획안 생성",
+    "currentPetCue",
+    "daily-po-pm-pet-cue"
   ],
   "prototype/app.js"
 );
@@ -116,7 +118,7 @@ includesAll(
 );
 
 assert(
-  app.indexOf("refineCard(first)") < app.indexOf("generateArtifact(first)"),
+  app.indexOf("refineCard(first)") < app.indexOf("generateArtifact(first"),
   "guided demo should refine the human-edited card before generating the artifact"
 );
 

@@ -100,17 +100,7 @@ h2 {
 }
 
 .pet {
-  max-width: 420px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 14px;
-  border: 1px solid #b7d8cf;
-  border-radius: 8px;
-  background: var(--accent-soft);
-  color: #184e45;
-  font-size: 14px;
-  font-weight: 650;
+  display: none;
 }
 
 .pet-dot {
@@ -466,4 +456,5 @@ h2 {
   .board {
     grid-template-columns: repeat(6, 220px);
   }
+
 }
