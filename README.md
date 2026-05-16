@@ -6,6 +6,10 @@
 
 핵심 산출물은 `skills/daily-po-pm-loop/SKILL.md`에 있는 Codex Skill입니다. `prototype/`의 브라우저 화면은 Skill이 안내하는 업무 흐름이 어떻게 보일 수 있는지 보여주는 시각적 데모입니다. 즉, 브라우저 prototype이 Codex를 직접 호출하는 구조는 아닙니다.
 
+![Codex 앱에서 데모를 실행한 화면](imgs/demo-codex-app.png)
+
+위 화면은 Codex 앱에서 로컬 데모 페이지를 열고, 선택된 제품 기획 후보 카드가 PRD와 Today Focus Todo mock으로 확장된 상태입니다. 오른쪽 하단의 Pet overlay는 실제 Codex 앱의 active thread 진행 상태를 보여주는 용도입니다.
+
 ## 컨셉
 
 이 데모는 human-in-the-loop PO/PM workflow를 보여줍니다. Codex가 바로 앱을 생성하지 않습니다. Skill은 먼저 데일리 업무 신호를 운영 보드와 수정 가능한 제품 기획 후보 카드로 정리합니다. PO/PM이 카드 하나를 수정하고 승인하면, Codex는 선택된 카드 1개만 PRD와 Today Focus Todo mock으로 확장합니다.

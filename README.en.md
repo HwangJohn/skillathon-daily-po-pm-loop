@@ -6,6 +6,10 @@ This repository is a Codex Skillthon submission for a PO/PM daily operating loop
 
 The core artifact is the Codex Skill in `skills/daily-po-pm-loop/SKILL.md`. The browser prototype in `prototype/` is a visual demo surface that shows what the skill-guided workflow can look like. The prototype does not call Codex by itself.
 
+![Demo running in the Codex App](imgs/demo-codex-app.png)
+
+The screenshot shows the local demo page running inside the Codex App after a selected product opportunity card has been expanded into a PRD and Today Focus Todo mock. The Pet overlay in the lower-right represents the real Codex App active-thread progress surface.
+
 ## Concept
 
 The concept is a human-in-the-loop PO/PM workflow. Codex does not immediately generate an app. The skill first turns daily work signals into an operating board and editable opportunity cards. The PO/PM edits and approves one card, then Codex expands only that card into a PRD and Today Focus Todo mock.
