@@ -76,6 +76,7 @@ flowchart TB
 - `SUBMISSION.md`: Skillthon 제출 요약
 - `server.js`: Codex App / 브라우저 데모용 로컬 preview server
 - `tests/skill_contract.test.js`: Skill과 prototype의 계약이 맞는지 확인하는 테스트
+- `docs/06-codex-pet-integration.md`: 실제 Codex Pet 데모 방법과 한계
 
 ## 데모 실행
 
@@ -116,6 +117,12 @@ node tests/skill_contract.test.js
 ```
 
 이 테스트는 모델을 호출하지 않습니다. 제출된 `SKILL.md`, references, prototype이 데모에 필요한 계약을 포함하는지 확인합니다. 확인 항목은 HITL opportunity cards, 선택 카드 1개만 생성, PRD/UI mock output, Pet prompt, automation prompt, mock signal coverage입니다.
+
+## Codex Pet 연동
+
+Codex Pet은 별도 push API가 아니라 Codex 앱의 active thread와 짧은 progress prompt를 보여주는 floating overlay입니다. 그래서 이 Skill은 각 단계 응답 상단에 `Pet cue: ...`를 출력하도록 설계했습니다. Codex 앱에서 `/pet`을 켠 뒤 Skill을 실행하면 Pet overlay가 active thread의 진행 상태를 보여줍니다.
+
+자세한 데모 절차는 `docs/06-codex-pet-integration.md`를 참고하세요.
 
 ## Skillthon 포지셔닝
 

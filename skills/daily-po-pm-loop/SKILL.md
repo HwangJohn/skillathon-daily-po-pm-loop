@@ -88,12 +88,32 @@ Each card should contain:
 
 ## Pet Prompt Rules
 
-Treat Codex Pet as an ambient cue surface, not a guaranteed push notification API.
+Use Codex Pet through the active Codex thread. Codex Pet does not expose a public push-notification API; it shows the active thread state and short progress prompts in the floating overlay. Therefore, every major workflow phase must emit a short `Pet cue:` line in the Codex response so the active thread has a glanceable progress prompt.
 
 - Keep `pet_prompt` under 120 characters.
 - Mention one action or decision.
 - Avoid generic status text.
+- Put the current `pet_prompt` near the top of each phase response as `Pet cue: ...`.
+- When waiting for user input, make the Pet cue describe the next human decision.
+- In demo mode, update the Pet cue at least for triage, opportunity review, card refinement, and selected artifact generation.
 - Example: `릴리즈 리스크 1건만 결정하면 오늘 focus가 잠깁니다.`
+
+### Codex App Pet Demo Procedure
+
+When the user wants to demonstrate this skill with Codex Pet:
+
+1. Ask the user to enable Codex Pets in Settings > Appearance > Pets if it is not already enabled.
+2. Ask the user to type `/pet` or run Wake Pet from the command menu.
+3. Run this skill in the active thread.
+4. At each phase, start with `Pet cue: ...`.
+5. Keep the active thread waiting for the user's edit/approval decision before generating the PRD/UI mock.
+
+Demo Pet cues:
+
+- `Pet cue: 업무 신호를 Today, Waiting, Risk로 정리했습니다.`
+- `Pet cue: 기획 후보 3개가 준비됐습니다. 하나를 고쳐 승인하세요.`
+- `Pet cue: 카드 문장을 다듬었습니다. 선택하면 PRD/mock을 만듭니다.`
+- `Pet cue: 승인된 카드 1개에서 PRD와 Today Focus mock을 만들었습니다.`
 
 ## Automation Prompt Rules
 

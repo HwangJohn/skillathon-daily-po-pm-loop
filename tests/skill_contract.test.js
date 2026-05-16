@@ -10,6 +10,7 @@ const sampleSignals = read("skills/daily-po-pm-loop/references/sample-signals.md
 const outputExamples = read("skills/daily-po-pm-loop/references/output-examples.md");
 const app = read("prototype/app.js");
 const data = read("prototype/data.js");
+const petDoc = read("docs/06-codex-pet-integration.md");
 
 function includesAll(source, required, label) {
   for (const item of required) {
@@ -30,6 +31,8 @@ includesAll(
     "Human Edit Loop",
     "Generate Planning Artifact",
     "pet_prompt",
+    "Pet cue:",
+    "Codex App Pet Demo Procedure",
     "next_automation_prompt",
     "opportunity_cards",
     "selected_artifact",
@@ -64,6 +67,17 @@ includesAll(
   outputExamples,
   ["Pet prompt examples", "Opportunity card example", "PRD brief example"],
   "output-examples.md"
+);
+
+includesAll(
+  petDoc,
+  [
+    "Codex Pet does not currently expose a public JavaScript, CLI, or HTTP API",
+    "/pet",
+    "Pet cue:",
+    "active-thread progress prompting"
+  ],
+  "docs/06-codex-pet-integration.md"
 );
 
 includesAll(

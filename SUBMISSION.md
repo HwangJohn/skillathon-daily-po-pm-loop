@@ -64,10 +64,22 @@ The prototype can also be opened directly from `prototype/index.html`, but the l
 Use the daily-po-pm-loop skill. Read the sample signals, produce an operating board, propose 3 opportunity cards, wait for my edits, then generate a PRD and UI mock spec only for the selected card.
 ```
 
+## Codex Pet Demo Prompt
+
+Codex Pet is integrated through the active Codex thread rather than a separate push API. Enable Codex Pet in Settings > Appearance > Pets, then type `/pet` or use Wake Pet. Run this prompt in the active thread:
+
+```text
+Use the daily-po-pm-loop skill at skills/daily-po-pm-loop.
+Read references/sample-signals.md.
+Run the demo in phases. At the top of every phase, print `Pet cue: ...` in under 120 characters so Codex Pet can show the active progress prompt.
+First triage the signals, then propose opportunity cards and wait for my edits. Do not generate the PRD/UI mock until I approve one card.
+```
+
 ## Validation
 
 - `node --check prototype/app.js`: passed.
 - `node --check server.js`: passed.
+- `node tests/skill_contract.test.js`: passed.
 - `http://127.0.0.1:4173/demo.html`: returned HTTP 200.
 - Secret scan by filename patterns for key/token/secret/env/pem/p12/credentials: no matching files found.
 
@@ -81,7 +93,7 @@ Use the daily-po-pm-loop skill. Read the sample signals, produce an operating bo
 ## Limits and Next Steps
 
 - Replace mock signals with MCP or CLI adapters for real systems.
-- Route short `pet_prompt` outputs into Codex Pet as an ambient cue.
+- Codex Pet uses active-thread progress prompts; this submission emits `Pet cue:` lines from the skill and mirrors them in the visual prototype.
 - Add Codex automation prompts for morning triage, midday replan, and end-of-day review.
 - Add eval prompts for common PO/PM scenarios.
 - Add screenshots or a short screen recording before final GitHub submission if required by the event form.
