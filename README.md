@@ -1,23 +1,50 @@
 # Daily PO/PM Loop Skillthon Prototype
 
-This workspace contains a Codex Skillthon prototype for a PO/PM daily operating loop.
+This workspace contains a Codex Skillthon submission for a PO/PM daily operating loop.
+
+The core artifact is the Codex Skill in `skills/daily-po-pm-loop/SKILL.md`. The browser prototype in `prototype/` is a visual demo surface that shows what the skill-guided workflow can look like. The prototype does not call Codex by itself.
 
 ## Concept
 
-The demo shows a human-in-the-loop PO/PM workflow. Codex does not immediately generate an app. It first turns daily work signals into an operating board and editable opportunity cards. The PO/PM edits and approves one card, then Codex expands only that card into a PRD and Today Focus Todo mock.
+The concept is a human-in-the-loop PO/PM workflow. Codex does not immediately generate an app. The skill first turns daily work signals into an operating board and editable opportunity cards. The PO/PM edits and approves one card, then Codex expands only that card into a PRD and Today Focus Todo mock.
 
 ```mermaid
 flowchart LR
   A[Daily work signals<br/>Outlook, Jira, Calendar, Todo, Feedback] --> B[Codex Skill<br/>Daily PO/PM Loop]
-  B --> C[Operating Board<br/>Today, Waiting, Risk, Stakeholder]
-  C --> D[Product Opportunity Cards]
-  D --> E{PO/PM HITL Review}
-  E -->|edit/add/delete| D
-  E -->|approve one card| F[Planning Artifact]
-  F --> G[PRD Brief]
-  F --> H[Today Focus Todo UI Mock]
-  B --> I[Pet Prompt<br/>ambient cue]
-  B --> J[Next Automation Prompt]
+  B --> C[Skill Output Contract<br/>board, cards, PRD spec, pet prompt]
+  C --> D[Visual Prototype<br/>prototype/index.html]
+  D --> E[Operating Board<br/>Today, Waiting, Risk, Stakeholder]
+  E --> F[Product Opportunity Cards]
+  F --> G{PO/PM HITL Review}
+  G -->|edit/add/delete| F
+  G -->|approve one card| H[Planning Artifact]
+  H --> I[PRD Brief]
+  H --> J[Today Focus Todo UI Mock]
+  C --> K[Pet Prompt<br/>ambient cue]
+  C --> L[Next Automation Prompt]
+```
+
+## Skill vs Prototype
+
+The skill and the browser demo have different jobs:
+
+```mermaid
+flowchart TB
+  U[User / Reviewer] -->|runs in Codex| S[Codex Skill<br/>skills/daily-po-pm-loop/SKILL.md]
+  S --> SO[Structured workflow output<br/>board_update, opportunity_cards, selected_artifact]
+  U -->|opens in browser| P[Visual Prototype<br/>http://127.0.0.1:4173]
+  P --> PO[Mock interaction<br/>edit cards, refine, generate plan]
+  SO -.represented by.-> P
+  P -.does not call.-> S
+  S --> R[references/sample-signals.md<br/>references/output-examples.md]
+```
+
+To run the actual skill behavior in Codex, use:
+
+```text
+Use the daily-po-pm-loop skill at skills/daily-po-pm-loop.
+Read references/sample-signals.md.
+Run Morning Signal Triage, propose opportunity cards, wait for my edits, then generate a PRD and UI mock spec only for the selected card.
 ```
 
 ## Skill Structure
@@ -41,10 +68,12 @@ flowchart TB
 
 ## What is included
 
-- `skills/daily-po-pm-loop/`: Codex Skill package
-- `prototype/`: static local demo app
+- `skills/daily-po-pm-loop/`: Codex Skill package and the primary submission artifact
+- `prototype/`: static local demo app that visualizes the skill workflow
 - `docs/`: summarized event-guide notes and submission strategy
 - `SUBMISSION.md`: Skillathon submission summary
+- `server.js`: local preview server for Codex App / browser demos
+- `tests/skill_contract.test.js`: contract tests that check the skill and prototype stay aligned
 
 ## Run the demo
 
@@ -67,18 +96,28 @@ http://127.0.0.1:4173/
 http://127.0.0.1:4173/demo.html
 ```
 
-Demo flow:
+Prototype demo flow:
 
-1. Click `Run Codex Triage`.
+1. Click `Codex Triage 실행`.
 2. Review the operating board.
 3. Edit or add a product opportunity card.
-4. Click `Refine Card`.
-5. Click `Generate Plan`.
+4. Click `카드 다듬기`.
+5. Click `기획안 생성`.
 6. Show the generated PRD and UI mock preview.
+
+## Test
+
+Run:
+
+```powershell
+node tests/skill_contract.test.js
+```
+
+The test does not call a model. It verifies that the submitted `SKILL.md`, references, and prototype all contain the contract needed for the demo: HITL opportunity cards, selected-card-only generation, PRD/UI mock output, Pet prompt, automation prompt, and mock signal coverage.
 
 ## Skillthon positioning
 
-This is not a todo app. It is a Codex-native PO/PM workflow skill that turns daily signals into human-approved product opportunities and generates a planning mock only after the PO/PM selects a card.
+This is not a todo app, and the browser page is not the skill runtime. It is a Codex-native PO/PM workflow skill plus a visual prototype. The skill defines the reusable procedure; the prototype makes the human-in-the-loop flow easy to understand during the Skillthon demo.
 
 ## Submission links
 
