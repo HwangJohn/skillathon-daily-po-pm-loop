@@ -1,0 +1,3 @@
+display_name: Daily PO/PM Loop
+short_description: Turn PO/PM daily signals into HITL priorities and product mocks.
+default_prompt: Use this skill to triage my PO/PM day, create opportunity cards, and generate a product planning mock for one selected card.
