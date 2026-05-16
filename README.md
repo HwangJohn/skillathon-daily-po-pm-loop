@@ -121,7 +121,9 @@ node tests/skill_contract.test.js
 
 ## Codex Pet 연동
 
-Codex Pet은 별도 push API가 아니라 Codex 앱의 active thread와 짧은 progress prompt를 보여주는 floating overlay입니다. 그래서 이 Skill은 각 단계 응답 상단에 `Pet cue: ...`를 출력하도록 설계했습니다. Codex 앱에서 `/pet`을 켠 뒤 Skill을 실행하면 Pet overlay가 active thread의 진행 상태를 보여줍니다.
+실제 Codex Pet overlay를 보여주려면 **Codex 앱에서 실행해야 합니다.** Codex Pet은 Codex 앱의 floating overlay이고, active thread의 상태와 짧은 progress prompt를 보여주는 기능입니다.
+
+CLI에서도 Skill 절차와 `Pet cue: ...` 출력은 테스트할 수 있지만, CLI에는 Pet overlay가 없으므로 실제 Pet 화면은 보이지 않습니다. 그래서 이 Skill은 각 단계 응답 상단에 `Pet cue: ...`를 출력하도록 설계했고, Codex 앱에서 `/pet`을 켠 뒤 Skill을 실행하면 Pet overlay가 active thread의 진행 상태를 보여줍니다.
 
 자세한 데모 절차는 `docs/06-codex-pet-integration.md`를 참고하세요.
 

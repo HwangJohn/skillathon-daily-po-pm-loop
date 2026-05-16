@@ -6,6 +6,12 @@ Codex Pet does not currently expose a public JavaScript, CLI, or HTTP API for ar
 
 Therefore this project integrates with Pet by making the Codex Skill emit short progress prompts in the active thread.
 
+## Codex App vs CLI
+
+- **Codex App**: use this for the real Pet overlay demo. Enable Pet and run the skill in the active thread.
+- **Codex CLI**: can test the skill flow and `Pet cue: ...` text, but cannot display the Pet overlay.
+- **Browser prototype**: visually mirrors Pet cues in the top-right area, but does not connect to the real Codex Pet.
+
 ## How to demo with real Codex Pet
 
 1. Open Codex App.

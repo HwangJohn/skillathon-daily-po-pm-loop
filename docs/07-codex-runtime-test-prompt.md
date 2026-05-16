@@ -9,6 +9,8 @@ Use this prompt in Codex App to test the actual `daily-po-pm-loop` skill behavio
 3. Type `/pet` in the composer or run Wake Pet from the command menu.
 4. Open this repository as the active project.
 
+For CLI-only testing, you can still run the prompt and verify `Pet cue: ...` output, but the real Pet overlay will not appear.
+
 ## Prompt
 
 ```text

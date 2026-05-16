@@ -121,7 +121,9 @@ The test does not call a model. It verifies that the submitted `SKILL.md`, refer
 
 ## Codex Pet Integration
 
-Codex Pet is not a separate push API. It is a floating overlay that shows the active Codex thread and a short progress prompt. This skill is designed to print `Pet cue: ...` at the top of each phase response. When `/pet` is enabled in the Codex App, the Pet overlay can surface the active thread progress.
+To show the real Codex Pet overlay, run the demo in the **Codex App**. Codex Pet is a floating overlay in the Codex App that shows the active thread state and a short progress prompt.
+
+The CLI can test the same skill flow and `Pet cue: ...` output, but it cannot show the Pet overlay. This skill is designed to print `Pet cue: ...` at the top of each phase response. When `/pet` is enabled in the Codex App, the Pet overlay can surface the active thread progress.
 
 See `docs/06-codex-pet-integration.md` for the demo procedure.
 

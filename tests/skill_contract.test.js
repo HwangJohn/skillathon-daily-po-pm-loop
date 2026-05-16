@@ -74,6 +74,7 @@ includesAll(
   petDoc,
   [
     "Codex Pet does not currently expose a public JavaScript, CLI, or HTTP API",
+    "Codex App vs CLI",
     "/pet",
     "Pet cue:",
     "active-thread progress prompting"
